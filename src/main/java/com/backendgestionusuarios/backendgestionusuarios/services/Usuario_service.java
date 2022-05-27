@@ -6,7 +6,9 @@ import com.backendgestionusuarios.backendgestionusuarios.dao.Usuario_repository_
 import com.backendgestionusuarios.backendgestionusuarios.models.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Usuario_service implements IUsuario {
 
     @Autowired
@@ -14,25 +16,22 @@ public class Usuario_service implements IUsuario {
 
     @Override
     public List<Usuario> findAll() {
-        return null;
+        return (List<Usuario>) usuario_dao.findAll();
     }
 
     @Override
     public Usuario findById(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+        return usuario_dao.findById(id).orElseThrow(null);
     }
 
     @Override
     public Usuario save(Usuario usuario) {
-        // TODO Auto-generated method stub
-        return null;
+        return usuario_dao.save(usuario);
     }
 
     @Override
     public void delete(Integer id) {
-        // TODO Auto-generated method stub
-
+        usuario_dao.deleteById(id);
     }
 
 }
