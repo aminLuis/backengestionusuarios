@@ -3,10 +3,15 @@ package com.backendgestionusuarios.backendgestionusuarios.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -19,8 +24,10 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private Integer id_rol;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Rol id_rol;
 
     @Column(nullable = false, unique = true)
     private String nombre;
@@ -39,11 +46,11 @@ public class Usuario {
         return id;
     }
 
-    public void setId_rol(Integer id_rol) {
+    public void setRol(Rol id_rol) {
         this.id_rol = id_rol;
     }
 
-    public Integer getId_rol() {
+    public Rol getRol() {
         return id_rol;
     }
 

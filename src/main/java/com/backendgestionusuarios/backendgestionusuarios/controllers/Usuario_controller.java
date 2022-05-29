@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,7 +79,7 @@ public class Usuario_controller {
         }
 
         try {
-            actual.setId_rol(data.getId_rol());
+            actual.setRol(data.getRol());
             actual.setNombre(data.getNombre());
             actual.setActivo(data.getActivo());
             actual.setCorreo(data.getCorreo());
@@ -89,5 +90,20 @@ public class Usuario_controller {
         }
 
         return new ResponseEntity<>(actual, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("usuario/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            usuario_service.delete(id);
+            response.put("Mensaje", "Usuario eliminado con exito");
+        } catch (DataAccessException e) {
+            response.put("Mensaje", "Error al eliminar usuario");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 }
