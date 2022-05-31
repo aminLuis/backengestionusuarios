@@ -24,10 +24,8 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rol_id")
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-    private Rol id_rol;
+    @Column(nullable = false)
+    private Integer id_rol;
 
     @Column(nullable = false, unique = true)
     private String nombre;
@@ -38,6 +36,11 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String correo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rol_id")
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Rol rol;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -46,12 +49,20 @@ public class Usuario {
         return id;
     }
 
-    public void setRol(Rol id_rol) {
+    public void setId_rol(Integer id_rol) {
         this.id_rol = id_rol;
     }
 
-    public Rol getRol() {
+    public Integer getId_rol() {
         return id_rol;
+    }
+
+    public void setRol(Rol id_rol) {
+        this.rol = id_rol;
+    }
+
+    public Rol getRol() {
+        return rol;
     }
 
     public void setNombre(String nombre) {

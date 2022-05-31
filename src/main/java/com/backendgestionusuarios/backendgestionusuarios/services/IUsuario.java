@@ -13,4 +13,6 @@ public interface IUsuario {
     public Usuario save(Usuario usuario);
 
     public void delete(Integer id);
+
+    public List<Usuario> findByName(String nombre);
 }

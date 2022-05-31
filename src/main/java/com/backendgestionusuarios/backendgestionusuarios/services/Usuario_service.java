@@ -34,4 +34,9 @@ public class Usuario_service implements IUsuario {
         usuario_dao.deleteById(id);
     }
 
+    @Override
+    public List<Usuario> findByName(String nombre) {
+        return (List<Usuario>) usuario_dao.findAll(nombre);
+    }
+
 }

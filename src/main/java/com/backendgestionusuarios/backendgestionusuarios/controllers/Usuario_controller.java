@@ -79,10 +79,11 @@ public class Usuario_controller {
         }
 
         try {
-            actual.setRol(data.getRol());
+            actual.setId_rol(data.getId_rol());
             actual.setNombre(data.getNombre());
             actual.setActivo(data.getActivo());
             actual.setCorreo(data.getCorreo());
+            actual.setRol(data.getRol());
             usuario_service.save(actual);
         } catch (DataAccessException e) {
             response.put("Mensaje", "Error al buscar usuario");
@@ -105,5 +106,10 @@ public class Usuario_controller {
         }
 
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("usuario/filtro/{nombre}")
+    public List<Usuario> getNombres(@PathVariable String nombre) {
+        return usuario_service.findByName(nombre);
     }
 }
