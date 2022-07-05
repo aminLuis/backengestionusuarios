@@ -39,4 +39,9 @@ public class Usuario_service implements IUsuario {
         return (List<Usuario>) usuario_dao.findAll(nombre);
     }
 
+    @Override
+    public Usuario findByCredentials(String correo, String nombre) {
+        return usuario_dao.findByCredentials(correo, nombre);
+    }
+
 }

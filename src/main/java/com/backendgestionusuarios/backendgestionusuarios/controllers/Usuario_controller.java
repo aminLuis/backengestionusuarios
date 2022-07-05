@@ -112,4 +112,25 @@ public class Usuario_controller {
     public List<Usuario> getNombres(@PathVariable String nombre) {
         return usuario_service.findByName(nombre);
     }
+
+    @PostMapping("usuario/credentials")
+    public ResponseEntity<?> getUsuario_(@RequestBody Usuario user) {
+        Usuario usuario = null;
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            usuario = usuario_service.findByCredentials(user.getCorreo(), user.getNombre());
+        } catch (DataAccessException e) {
+            response.put("Mensaje", "Error al realizar la consulta en la base de datos");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (usuario == null) {
+            response.put("Mensaje", "El usuario no fue encontrado");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+    }
+
 }

@@ -15,4 +15,6 @@ public interface IUsuario {
     public void delete(Integer id);
 
     public List<Usuario> findByName(String nombre);
+
+    public Usuario findByCredentials(String correo, String nombre);
 }
